@@ -30,8 +30,8 @@ const handler = NextAuth({
         /// if not, create a new user
         if (!userExists) {
           await User.create({
-            email: profile.name,
-            username: profile.name.replace(" ", "").toLowerCase(),
+            email: profile.email,
+            username: profile.name.replaceAll(" ", "").toLowerCase(),
             image: profile.picture,
           });
         }
