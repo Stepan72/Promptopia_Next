@@ -8,8 +8,23 @@ function MyProfile() {
   const { data: session } = useSession();
   const [posts, setPosts] = useState([]);
 
-  function editHandler() {
+  async function editHandler(post) {
     console.log("Edit");
+    console.log(post);
+    const editPostResponse = await fetch(`/api/prompt/${post._id}/`, {
+      method: "PATCH",
+      body: JSON.stringify({
+        prompt: post.prompt,
+        userId: session?.user.id,
+        tag: post.tag,
+        userImg: session?.user.image,
+        userName: session?.user.name,
+        email: session?.user.email,
+      }),
+    });
+    console.log(editPostResponse);
+    const data = await editPostResponse.json();
+    console.log(data);
   }
 
   async function deleteHandler() {
