@@ -2,7 +2,7 @@ import { connectToDB } from "@utils/database";
 import Prompt from "@models/prompt";
 
 export const POST = async (req, res) => {
-  const { userId, prompt, tag } = await req.json();
+  const { userId, prompt, tag, userImg, email, userName } = await req.json();
 
   try {
     await connectToDB();
@@ -10,7 +10,11 @@ export const POST = async (req, res) => {
       creator: userId,
       prompt,
       tag,
+      userImg,
+      userName,
+      email,
     });
+    console.log(newPrompt);
     await newPrompt.save();
     return new Response(JSON.stringify(newPrompt), { status: 201 });
   } catch (error) {

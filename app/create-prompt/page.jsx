@@ -16,7 +16,7 @@ function CreatePrompt() {
   async function createPrompt(event) {
     event.preventDefault();
     setSubmitting(true);
-
+    // console.log(session?.user);
     try {
       const response = await fetch("/api/prompt/new", {
         method: "POST",
@@ -24,6 +24,9 @@ function CreatePrompt() {
           prompt: post.prompt,
           userId: session?.user.id,
           tag: post.tag,
+          userImg: session?.user.image,
+          userName: session?.user.name,
+          email: session?.user.email,
         }),
       });
 
