@@ -12,6 +12,11 @@ const Feed = () => {
     setSearchText(e.target.value);
   }
 
+  function tagHandlerFun(tag) {
+    // console.log(tag);
+    setSearchText(tag);
+  }
+
   useEffect(() => {
     const fetchPosts = async () => {
       const response = await fetch("/api/prompt");
@@ -32,7 +37,7 @@ const Feed = () => {
         post.tag.includes(searchText)
       );
     });
-    console.log(filteredPosts);
+    // console.log(filteredPosts);
 
     if (searchText.length > 0) {
       setShowPosts(filteredPosts);
@@ -53,7 +58,7 @@ const Feed = () => {
           className="search_input peer"
         />
       </form>
-      <PromptCardList data={showPost} handleTagClick={() => {}} />
+      <PromptCardList data={showPost} handleTagClick={tagHandlerFun} />
       {!showPost.length && <p>No Posts Found!</p>}
     </section>
   );
