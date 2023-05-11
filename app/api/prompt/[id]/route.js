@@ -10,7 +10,7 @@ export const GET = async (req, { params }) => {
     if (!prompt) {
       return new Response("Prompt not found", { status: 404 });
     }
-    console.log(prompt, "THERE IS PROMPT");
+    // console.log(prompt, "THERE IS PROMPT");
     return new Response(JSON.stringify(prompt), { status: 200 });
   } catch (error) {
     return new Response("Failed to fetch prompt", { status: 500 });

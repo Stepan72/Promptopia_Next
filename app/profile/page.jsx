@@ -7,28 +7,42 @@ import { Profile } from "@components";
 function MyProfile() {
   const { data: session } = useSession();
   const [posts, setPosts] = useState([]);
+  const router = useRouter();
 
-  async function editHandler(post) {
-    console.log("Edit");
-    console.log(post);
-    const editPostResponse = await fetch(`/api/prompt/${post._id}/`, {
-      method: "PATCH",
-      body: JSON.stringify({
-        prompt: post.prompt,
-        userId: session?.user.id,
-        tag: post.tag,
-        userImg: session?.user.image,
-        userName: session?.user.name,
-        email: session?.user.email,
-      }),
-    });
-    console.log(editPostResponse);
-    const data = await editPostResponse.json();
-    console.log(data);
+  useEffect(() => {
+    if (!session) {
+      router.push("/");
+    }
+  }, []);
+
+  function editHandler(post) {
+    // console.log("Edit");
+    // console.log(post);
+    router.push(`/update-prompt?id=${post._id}`);
   }
 
-  async function deleteHandler() {
-    console.log("delete");
+  async function deleteHandler(post) {
+    // console.log("delete");
+    // console.log(post._id);
+    const hasConfirmed = confirm(
+      "Are you sure you want to delete this prompt?"
+    );
+    if (hasConfirmed) {
+      try {
+        const deleteResponse = await fetch(`/api/prompt/${post._id}`, {
+          method: "DELETE",
+        });
+        console.log(deleteResponse);
+
+        const filteredPosts = posts.filter((p) => {
+          return p._id !== post._id;
+        });
+
+        setPosts(filteredPosts);
+      } catch (error) {
+        console.log(error);
+      }
+    }
   }
 
   useEffect(() => {

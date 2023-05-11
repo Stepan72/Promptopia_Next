@@ -63,7 +63,7 @@ function PromptCard({ post, handleTagClick, handleEdit, handleDelete }) {
           handleTagClick && handleTagClick(post.tag);
         }}
       >
-        {post.tag}
+        #{post.tag}
       </p>
       {session?.user.name === post.userName && pathName === "/profile" && (
         <div className="mt-5 flex-center gap-4 border-t border-gray-100 pt-3">
