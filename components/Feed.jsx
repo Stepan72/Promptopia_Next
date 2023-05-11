@@ -6,8 +6,11 @@ import PromptCardList from "./PromptCardList";
 const Feed = () => {
   const [searchText, setSearchText] = useState("");
   const [posts, setPosts] = useState([]);
+  const [showPost, setShowPosts] = useState([]);
 
-  function handleSearchChange(e) {}
+  function handleSearchChange(e) {
+    setSearchText(e.target.value);
+  }
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -15,10 +18,28 @@ const Feed = () => {
       const data = await response.json();
 
       setPosts(data);
+      setShowPosts(data);
     };
 
     fetchPosts();
   }, []);
+
+  useEffect(() => {
+    let filteredPosts = posts.filter((post) => {
+      return (
+        post.userName.includes(searchText) ||
+        post.prompt.includes(searchText) ||
+        post.tag.includes(searchText)
+      );
+    });
+    console.log(filteredPosts);
+
+    if (searchText.length > 0) {
+      setShowPosts(filteredPosts);
+    } else {
+      setShowPosts(posts);
+    }
+  }, [searchText]);
 
   return (
     <section className="feed">
@@ -32,7 +53,8 @@ const Feed = () => {
           className="search_input peer"
         />
       </form>
-      <PromptCardList data={posts} handleTagClick={() => {}} />
+      <PromptCardList data={showPost} handleTagClick={() => {}} />
+      {!showPost.length && <p>No Posts Found!</p>}
     </section>
   );
 };
