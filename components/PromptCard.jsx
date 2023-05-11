@@ -18,6 +18,11 @@ function PromptCard({ post, handleTagClick, handleEdit, handleDelete }) {
     }, 3000);
   }
 
+  function handleProfileView() {
+    console.log(post);
+    router.push(`/profile/${post.userName}`);
+  }
+
   // console.log(post);
   // console.log(session);
   // console.log(pathName);
@@ -27,7 +32,7 @@ function PromptCard({ post, handleTagClick, handleEdit, handleDelete }) {
       <div className="flex justify-between items-start gap-5">
         <div
           className="flex-1 flex justify-start items-center gap-3 cursor-pointer"
-          onClick={() => {}}
+          onClick={handleProfileView}
         >
           <Image
             src={post.userImg}
