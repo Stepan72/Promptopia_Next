@@ -14,9 +14,9 @@ function OtherProfile() {
   useEffect(() => {
     const fetchPosts = async () => {
       const response = await fetch(`/api/users/${postUserId}/posts`);
-      console.log(response);
+      //   console.log(response);
       const data = await response.json();
-      console.log(data);
+      //   console.log(data);
 
       setPosts(data);
     };

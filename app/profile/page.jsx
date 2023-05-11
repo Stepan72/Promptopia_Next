@@ -32,7 +32,7 @@ function MyProfile() {
         const deleteResponse = await fetch(`/api/prompt/${post._id}`, {
           method: "DELETE",
         });
-        console.log(deleteResponse);
+        // console.log(deleteResponse);
 
         const filteredPosts = posts.filter((p) => {
           return p._id !== post._id;
@@ -52,7 +52,7 @@ function MyProfile() {
       //   const response = await fetch(`/api/users/${session?.user.id}/posts`);
       const response = await fetch(`/api/users/${session?.user.name}/posts`);
       const data = await response.json();
-      console.log(data);
+      //   console.log(data);
       if (session?.user.name) {
         setPosts(data);
       }

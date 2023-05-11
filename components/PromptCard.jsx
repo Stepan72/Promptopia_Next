@@ -19,7 +19,7 @@ function PromptCard({ post, handleTagClick, handleEdit, handleDelete }) {
   }
 
   function handleProfileView() {
-    console.log(post);
+    // console.log(post);
     router.push(`/profile/${post.userName}`);
   }
 
